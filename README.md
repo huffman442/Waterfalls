@@ -7,3 +7,4 @@ TO-DO List:
 * Make is is the movement of the shark is not built upon the movement of the boat(Asynchronous
 * Make shark it's own class so that there may be several of them
 * Make fog of war/lighted area
+* Add upgrades for boats i.e. sails to make boat go faster, weapons, armor
