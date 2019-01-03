@@ -38,7 +38,7 @@ class Game
         end
     end
     def shark_movement(input)
-        while $input != q
+        #while $input != "q"
             $counter += 1
             if $counter > 20
                 $counter = 0
@@ -55,6 +55,7 @@ class Game
             if $counter.between?(15, 20)
                 $shark_x -= 1
             end
+        #end
     end
     def movement(input)
         if @row_position > 0 && $grid[@row_position - 1][@col_position] != $Island
@@ -127,5 +128,18 @@ class Game
             end
         end
         input
+    end
+    def still_waterfalls
+        still_searching = false
+        (0...@gridSize).each do |i|
+            (0...@gridSize).each do |j|
+                if $grid[i][j] == $Waterfall
+                    still_searching = true
+                end
+            end
+        end
+        if still_searching == false
+            $message = "You have found all waterfalls! You don't want no scrubs!"
+        end
     end
 end

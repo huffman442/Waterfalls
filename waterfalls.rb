@@ -15,26 +15,13 @@ system "cls"
 puts ""
 while input != "q" 
     game.display()
-    puts $message
-    
-    game.shark_movement(input)       
-    
+    puts $message    
+    game.shark_movement(input)    
     # get single character input
     input = STDIN.getch
-    # character doesn't get typed when a person types it
-   
+    # character doesn't get typed when a person types it   
     game.movement(input)
-    still_searching = false
-    (0...gridSize).each do |i|
-        (0...gridSize).each do |j|
-            if $grid[i][j] == $Waterfall
-                still_searching = true
-            end
-        end
-    end
-    if still_searching == false
-        message = "You have found all waterfalls! You don't want no scrubs!"
-    end
+    game.still_waterfalls()
     # clear screen for windows
     system "cls"
 end
