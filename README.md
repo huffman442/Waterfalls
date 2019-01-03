@@ -9,3 +9,7 @@ TO-DO List:
 * Make fog of war/lighted area
 * Add upgrades for boats i.e. sails to make boat go faster, weapons, armor
 * Multiple levels
+
+Known Bugs:
+* Shark phases through boat sometimes
+* Game doesn't exit after eaten by shark
