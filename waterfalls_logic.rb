@@ -35,4 +35,21 @@ class Game
             puts #print one array, hits enter, prints next array
         end
     end
+    def shark_movement
+        if $counter > 20
+            $counter = 0
+        end
+        if $counter.between?(0,5) 
+            $shark_y += 1
+        end
+        if $counter.between?(5, 10)
+            $shark_x += 1
+        end
+        if $counter.between?(10, 15)
+            $shark_y -= 1
+        end
+        if $counter.between?(15, 20)
+            $shark_x -= 1
+        end
+    end
 end
