@@ -6,3 +6,4 @@ TO-DO List:
 * Add pirate ships that shoot projectiles
 * Make is is the movement of the shark is not built upon the movement of the boat(Asynchronous
 * Make shark it's own class so that there may be several of them
+* Make fog of war/lighted area
