@@ -8,3 +8,4 @@ TO-DO List:
 * Make shark it's own class so that there may be several of them
 * Make fog of war/lighted area
 * Add upgrades for boats i.e. sails to make boat go faster, weapons, armor
+* Multiple levels
