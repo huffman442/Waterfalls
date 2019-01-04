@@ -10,6 +10,7 @@ TO-DO List:
 * Add upgrades for boats i.e. sails to make boat go faster, weapons, armor
 * Multiple levels
 * Money system
+* Game Over Screen
 
 Known Bugs:
 * Shark phases through boat sometimes
