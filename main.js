@@ -1,11 +1,10 @@
-let drawBoard = () => {
+let drawBoard = (currentlvlarray) => {
     const container = document.getElementById('container');
     let i = 0
     let k = 0
-    while(i < 3) {
+    while(i < currentlvlarray.length) {
         let j = 0
-        while(j < 8){
-            console.log("Hello" + i)
+        while(j < currentlvlarray[0].length){
             if (!document.getElementById(`div${k}`)) {
                 const ele = document.createElement("div");
                 ele.setAttribute("id", `div${k}`);
@@ -18,18 +17,16 @@ let drawBoard = () => {
                     container.appendChild(ele);
                     document.getElementById("div" + k).innerHTML = "<img src=img/ship_big_water_ripple.gif height = 20 width = 20>"
                 }                
-                
             }
             j++
             k++
-
         }
         i++
     }
 }
 
-let level1Arr = [[0, 0, 0, 0, 0, 0, 0, 0],[0, 0, 0, 1, 0, 0, 0, 0],[0, 0, 0, 0, 0, 0, 0, 0]]
+let level1Arr = [[0, 0, 0, 0, 0, 0, 0, 0],[0, 0, 0, 1, 0, 0, 0, 0],[0, 0, 0, 0, 0, 0, 0, 0],[0, 0, 0, 0, 0, 0, 0, 0]]
 
-window.onload = drawBoard()
+window.onload = drawBoard(level1Arr)
 
 
