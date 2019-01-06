@@ -21,3 +21,10 @@ class Board
         $grid[4][9] = 2
     end
 end
+
+class Game_Over
+    def initialize
+        $grid = Array.new(gridSize){ Array.new(gridSize) { 0 }}
+        $message = "Game over! New Game (y/n)"
+    end
+end

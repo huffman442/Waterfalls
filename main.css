@@ -1,0 +1,14 @@
+.container {
+    width: 29vw;
+    height: auto;
+    display: grid;   
+
+}
+.water {
+    display: inline-block;
+    position: relative;
+}
+.boat {
+   display: inline-block;
+   position: relative;
+}
