@@ -43,15 +43,22 @@ let moveLeft = () => {
     }    
 }
 let moveDown = () => {
-    if (row_position < 7 && currentlvlarray[row_position + 1][col_position] != island){
+    if (row_position < 3 && currentlvlarray[row_position + 1][col_position] != island){
         row_position++
+        drawBoard()
     }
 }
 let moveRight = () => {
-    console.log("right")
+    if(col_position < 7 && currentlvlarray[row_position][col_position + 1] != island) {
+        col_position++
+        drawBoard()
+    }
 }
 let moveUp = () => {
-    console.log("up")
+    if (row_position > 0 && currentlvlarray[row_position - 1][col_position] != island){
+        row_position--
+        drawBoard()
+    }
 }
 
 document.addEventListener("keypress", function onEvent(event) {
