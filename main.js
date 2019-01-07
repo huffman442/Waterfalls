@@ -10,7 +10,6 @@ let currentlvlarray = level1Arr
 const health = 40
 
 let drawBoard = () => {
-    console.log("drawing")
     const container = document.getElementById('container');
     container.innerHTML = ""
     let i = 0
@@ -41,7 +40,7 @@ let drawBoard = () => {
         }
         i++
     }
-    
+
 }
 let moveLeft = () => {    
     if(col_position > 0 && currentlvlarray[row_position][col_position-1] != island) {
