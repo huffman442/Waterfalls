@@ -1,6 +1,8 @@
 ﻿# Waterfalls
 This is a roguelike game using ruby programming language built during the Academy PGH program.
 
+Right now in the middle of making this a vanilla JavaScript program. This is to adjust some things, making the shark move asychronous to the boat moving. Also will be easier to deploy to a website.
+
 TO-DO List:
 * Add a health system & bar
 * Add pirate ships that shoot projectiles
