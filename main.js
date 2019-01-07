@@ -2,10 +2,12 @@ const island = 2
 const boat = 1
 const water = 0
 const shark = 3
+const waterfall = 4
 let row_position = 0
 let col_position = 7
-const level1Arr = [[0, 0, 0, 0, 0, 0, 0, 0],[0, 0, 0, 0, 0, 0, 0, 0],[0, 0, 0, 0, 0, 0, 0, 0],[0, 0, 0, 0, 0, 0, 0, 0]]
+const level1Arr = [[0, 0, 0, 0, 0, 0, 0, 0],[0, 0, 0, 2, 2, 2, 0, 0],[0, 0, 0, 2, 0, 2, 0, 0],[0, 0, 0, 0, 0, 0, 0, 0],[0, 0, 0, 0, 0, 0, 0, 0],[0, 0, 0, 0, 0, 0, 0, 0],[0, 0, 0, 0, 0, 0, 0, 0],[0, 0, 0, 0, 0, 0, 0, 0]]
 let currentlvlarray = level1Arr
+const health = 40
 
 let drawBoard = () => {
     console.log("drawing")
@@ -22,19 +24,24 @@ let drawBoard = () => {
                 if(col_position === j && row_position === i){
                     ele.setAttribute("class", "boat")
                     container.appendChild(ele);
-                    document.getElementById("div" + k).innerHTML = "<img src=img/ship_big_water_ripple.gif height = 20 width = 20>"
+                    document.getElementById("div" + k).innerHTML = "<img src=img/ship_big_water_ripple.gif height = 50 width = 50>"
                 }  
                 else if(level1Arr[i][j] === water) {
                     ele.setAttribute("class", "water")
                     container.appendChild(ele);
-                    document.getElementById(`div${k}`).innerHTML = "<img src=img/water.jpg height = 20 width = 20>"
-                }            
+                    document.getElementById(`div${k}`).innerHTML = "<img src=img/water.jpg height = 50 width = 50>"
+                } else if(level1Arr[i][j] === island) {
+                    ele.setAttribute("class", "water")
+                    container.appendChild(ele);
+                    document.getElementById(`div${k}`).innerHTML = "<img src=img/GrassIsland.png height = 50 width = 50>"
+                } 
             }
             j++
             k++
         }
         i++
     }
+    
 }
 let moveLeft = () => {    
     if(col_position > 0 && currentlvlarray[row_position][col_position-1] != island) {
@@ -43,13 +50,13 @@ let moveLeft = () => {
     }    
 }
 let moveDown = () => {
-    if (row_position < 3 && currentlvlarray[row_position + 1][col_position] != island){
+    if (row_position < currentlvlarray.length - 1 && currentlvlarray[row_position + 1][col_position] != island){
         row_position++
         drawBoard()
     }
 }
 let moveRight = () => {
-    if(col_position < 7 && currentlvlarray[row_position][col_position + 1] != island) {
+    if(col_position < currentlvlarray[0].length - 1 && currentlvlarray[row_position][col_position + 1] != island) {
         col_position++
         drawBoard()
     }
@@ -59,6 +66,9 @@ let moveUp = () => {
         row_position--
         drawBoard()
     }
+}
+let sharkMovement = () => {
+
 }
 
 document.addEventListener("keypress", function onEvent(event) {
