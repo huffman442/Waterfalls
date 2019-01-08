@@ -157,11 +157,14 @@ let sharkMovement = () => {
         shark_x--
         counter++
     }
+    if(shark_x === row_position && shark_y === col_position){
+        sharkDamage()
+    }
     drawBoard()
     
 }
 let sharkDamage = () => {
-    health -= Math.floor(Math.random()*4)
+    health -= Math.floor(Math.random()*3 + 1)
 }
 
 document.addEventListener("keypress", function onEvent(event) {
