@@ -9,8 +9,8 @@ let shark_x = 5
 let shark_y = 3
 let counter = 0
 let moneyAmt = 0
-const level1Arr = [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],[0, 0, 0, 2, 2, 2, 2, 2, 0, 0, 0, 0],[0, 0, 0, 2, 0, 0, 0, 4, 2, 0, 0, 0],[0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0, 0],[0, 0, 0, 2, 0, 0, 2, 0, 0, 0, 0, 0],[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]
-const level2Arr = [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],[0, 0, 0, 2, 2, 2, 2, 2, 0, 0, 0, 0],[0, 0, 0, 2, 0, 0, 0, 0, 2, 0, 0, 0],[0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0, 0],[0, 0, 0, 2, 0, 0, 2, 0, 0, 0, 0, 0],[0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0, 0],[0, 0, 0, 0, 0, 2, 0, 2, 0, 0, 0, 0],[0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0, 0]]
+const level1Arr = [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],[0, 0, 0, 2, 2, 2, 2, 2, 0, 0, 0, 0],[0, 0, 0, 2, 0, 0, 0, 4, 2, 0, 0, 0],[0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0, 0],[0, 0, 0, 2, 0, 0, 2, 0, 0, 0, 0, 0],[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]
+const level2Arr = [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],[0, 0, 0, 2, 2, 2, 2, 2, 0, 0, 0, 0],[0, 0, 0, 2, 0, 0, 0, 0, 2, 0, 0, 0],[0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0, 0],[0, 0, 0, 2, 0, 0, 2, 0, 0, 0, 0, 0],[0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0, 0],[0, 0, 0, 0, 0, 2, 0, 2, 0, 0, 0, 0],[0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0, 0],[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]
 let currentlvlarray = level1Arr
 let health = 40
 let maxHealth = 40
@@ -31,25 +31,25 @@ let drawBoard = () => {
                 if(col_position === j && row_position === i){
                     ele.setAttribute("class", "tile")
                     container.appendChild(ele);
-                    document.getElementById("div" + k).innerHTML = "<img src=img/ship_big_water_ripple.gif height = 50px width= 50px>"
+                    document.getElementById("div" + k).innerHTML = "<img src=img/ship_big_water_ripple.gif height = 30px width= 30px>"
                 } else if(shark_x === i && shark_y === j) {
                     ele.setAttribute("class", "tile")
                     container.appendChild(ele);
-                    document.getElementById("div" + k).innerHTML = "<img src=img/shark_001_64px.gif height = 50px width= 50px>"
+                    document.getElementById("div" + k).innerHTML = "<img src=img/shark_001_64px.gif height = 30px width= 30px>"
 
                 }else {
                     if(currentlvlarray[i][j] === water) {
                         ele.setAttribute("class", "tile")
                         container.appendChild(ele);
-                        document.getElementById(`div${k}`).innerHTML = "<img src=img/water.jpg height = 50px width = 50px>"
+                        document.getElementById(`div${k}`).innerHTML = "<img src=img/water.jpg height = 30px width = 30px>"
                     } else if(currentlvlarray[i][j] === island) {
                         ele.setAttribute("class", "tile")
                         container.appendChild(ele);
-                        document.getElementById(`div${k}`).innerHTML = "<img src=img/GrassIsland.png height = 50px width = 50px>"
+                        document.getElementById(`div${k}`).innerHTML = "<img src=img/GrassIsland.png height = 30px width = 30px>"
                     } else if(currentlvlarray[i][j] === waterfall) {
                         ele.setAttribute("class", "tile")
                         container.appendChild(ele);
-                        document.getElementById(`div${k}`).innerHTML = "<img src=img/waterfall.png height = 50px width = 50px>"
+                        document.getElementById(`div${k}`).innerHTML = "<img src=img/waterfall.png height = 30px width = 30px>"
                     } 
                 }
             }
@@ -154,7 +154,7 @@ let sharkMovement = () => {
         counter++
     }
     if(counter >= 15 && counter < 20){
-        $shark_x--
+        shark_x--
         counter++
     }
     drawBoard()
