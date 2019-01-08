@@ -15,5 +15,5 @@ TO-DO List:
 * Game Over Screen
 
 Known Bugs:
-* Shark phases through boat sometimes
-* Game doesn't exit after eaten by shark
+* ~~Shark phases through boat sometimes~~
+* ~~Game doesn't exit after eaten by shark~~(Irrelavent now because of health system)
