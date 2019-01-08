@@ -9,11 +9,12 @@ let shark_x = 5
 let shark_y = 3
 let counter = 0
 let moneyAmt = 0
-const level1Arr = [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],[0, 0, 0, 2, 2, 2, 2, 2, 0, 0, 0, 0],[0, 0, 0, 2, 0, 0, 0, 0, 2, 0, 0, 0],[0, 0, 0, 2, 0, 0, 4, 2, 0, 0, 0, 0],[0, 0, 0, 2, 0, 0, 2, 0, 0, 0, 0, 0],[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]
+const level1Arr = [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],[0, 0, 0, 2, 2, 2, 2, 2, 0, 0, 0, 0],[0, 0, 0, 2, 0, 0, 0, 4, 2, 0, 0, 0],[0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0, 0],[0, 0, 0, 2, 0, 0, 2, 0, 0, 0, 0, 0],[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]
 const level2Arr = [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],[0, 0, 0, 2, 2, 2, 2, 2, 0, 0, 0, 0],[0, 0, 0, 2, 0, 0, 0, 0, 2, 0, 0, 0],[0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0, 0],[0, 0, 0, 2, 0, 0, 2, 0, 0, 0, 0, 0],[0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0, 0],[0, 0, 0, 0, 0, 2, 0, 2, 0, 0, 0, 0],[0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0, 0]]
 let currentlvlarray = level1Arr
 let health = 40
 let maxHealth = 40
+let message = "Water is all around!"
 
 let drawBoard = () => {
     
@@ -66,28 +67,60 @@ let drawBoard = () => {
         container.appendChild(ele)
         document.getElementById(`div${k}`).innerHTML = `<img src=img/Golden.png height = 50px  width = 50px>${moneyAmt}`
     }
+    k++
+    if (!document.getElementById(`div${k}`)){
+        const ele = document.createElement("div");
+        ele.setAttribute("id", `div${k}`)
+        ele.setAttribute("class", "")
+        container.appendChild(ele)
+        document.getElementById(`div${k}`).innerHTML = `${message}`
+    }
 }
 let moveLeft = () => {    
     if(col_position > 0 && currentlvlarray[row_position][col_position-1] != island) {
         col_position--
+        if(currentlvlarray[row_position][col_position] === waterfall){
+            currentlvlarray[row_position][col_position] = 0
+            message = "You found a waterfall!"
+        } else {
+            message = "Water is all around"
+        }
         drawBoard()
     }    
 }
 let moveDown = () => {
     if (row_position < currentlvlarray.length - 1 && currentlvlarray[row_position + 1][col_position] != island){
         row_position++
+        if(currentlvlarray[row_position][col_position] === waterfall){
+            currentlvlarray[row_position][col_position] = 0
+            message = "You found a waterfall!"
+        } else {
+            message = "Water is all around"
+        }
         drawBoard()
     }
 }
 let moveRight = () => {
     if(col_position < currentlvlarray[0].length - 1 && currentlvlarray[row_position][col_position + 1] != island) {
         col_position++
+        if(currentlvlarray[row_position][col_position] === waterfall){
+            currentlvlarray[row_position][col_position] = 0
+            message = "You found a waterfall!"
+        } else {
+            message = "Water is all around"
+        }
         drawBoard()
     }
 }
 let moveUp = () => {
     if (row_position > 0 && currentlvlarray[row_position - 1][col_position] != island){
         row_position--
+        if(currentlvlarray[row_position][col_position] === waterfall){
+            currentlvlarray[row_position][col_position] = 0
+            message = "You found a waterfall!"
+        } else {
+            message = "Water is all around"
+        }
         drawBoard()
     }
 }
