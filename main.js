@@ -8,8 +8,9 @@ let col_position = 7
 let shark_x = 5
 let shark_y = 3
 let counter = 0
-
-const level1Arr = [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],[0, 0, 0, 2, 2, 2, 2, 2, 0, 0, 0, 0],[0, 0, 0, 2, 0, 0, 0, 0, 2, 0, 0, 0],[0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0, 0],[0, 0, 0, 2, 0, 0, 2, 0, 0, 0, 0, 0],[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]
+let moneyAmt = 0
+const level1Arr = [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],[0, 0, 0, 2, 2, 2, 2, 2, 0, 0, 0, 0],[0, 0, 0, 2, 0, 0, 0, 0, 2, 0, 0, 0],[0, 0, 0, 2, 0, 0, 4, 2, 0, 0, 0, 0],[0, 0, 0, 2, 0, 0, 2, 0, 0, 0, 0, 0],[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]
+const level2Arr = [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],[0, 0, 0, 2, 2, 2, 2, 2, 0, 0, 0, 0],[0, 0, 0, 2, 0, 0, 0, 0, 2, 0, 0, 0],[0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0, 0],[0, 0, 0, 2, 0, 0, 2, 0, 0, 0, 0, 0],[0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0, 0],[0, 0, 0, 0, 0, 2, 0, 2, 0, 0, 0, 0],[0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0, 0]]
 let currentlvlarray = level1Arr
 let health = 40
 let maxHealth = 40
@@ -31,14 +32,18 @@ let drawBoard = () => {
                     container.appendChild(ele);
                     document.getElementById("div" + k).innerHTML = "<img src=img/ship_big_water_ripple.gif height = 50px width= 50px>"
                 }  
-                else if(level1Arr[i][j] === water) {
+                else if(currentlvlarray[i][j] === water) {
                     ele.setAttribute("class", "tile")
                     container.appendChild(ele);
                     document.getElementById(`div${k}`).innerHTML = "<img src=img/water.jpg height = 50px width = 50px>"
-                } else if(level1Arr[i][j] === island) {
+                } else if(currentlvlarray[i][j] === island) {
                     ele.setAttribute("class", "tile")
                     container.appendChild(ele);
                     document.getElementById(`div${k}`).innerHTML = "<img src=img/GrassIsland.png height = 50px width = 50px>"
+                } else if(currentlvlarray[i][j] === waterfall) {
+                    ele.setAttribute("class", "tile")
+                    container.appendChild(ele);
+                    document.getElementById(`div${k}`).innerHTML = "<img src=img/waterfall.png height = 50px width = 50px>"
                 } 
             }
             j++
@@ -52,6 +57,14 @@ let drawBoard = () => {
         ele.setAttribute("class", "heathBar")
         container.appendChild(ele)
         document.getElementById(`div${k}`).innerHTML = `<img src=img/corazon.png height = 50px  width = 50px>${health}/${maxHealth}`
+    }
+    k++
+    if (!document.getElementById(`div${k}`)){
+        const ele = document.createElement("div");
+        ele.setAttribute("id", `div${k}`)
+        ele.setAttribute("class", "heathBar")
+        container.appendChild(ele)
+        document.getElementById(`div${k}`).innerHTML = `<img src=img/Golden.png height = 50px  width = 50px>${moneyAmt}`
     }
 }
 let moveLeft = () => {    
