@@ -32,20 +32,26 @@ let drawBoard = () => {
                     ele.setAttribute("class", "tile")
                     container.appendChild(ele);
                     document.getElementById("div" + k).innerHTML = "<img src=img/ship_big_water_ripple.gif height = 50px width= 50px>"
-                }  
-                else if(currentlvlarray[i][j] === water) {
+                } else if(shark_x === i && shark_y === j) {
                     ele.setAttribute("class", "tile")
                     container.appendChild(ele);
-                    document.getElementById(`div${k}`).innerHTML = "<img src=img/water.jpg height = 50px width = 50px>"
-                } else if(currentlvlarray[i][j] === island) {
-                    ele.setAttribute("class", "tile")
-                    container.appendChild(ele);
-                    document.getElementById(`div${k}`).innerHTML = "<img src=img/GrassIsland.png height = 50px width = 50px>"
-                } else if(currentlvlarray[i][j] === waterfall) {
-                    ele.setAttribute("class", "tile")
-                    container.appendChild(ele);
-                    document.getElementById(`div${k}`).innerHTML = "<img src=img/waterfall.png height = 50px width = 50px>"
-                } 
+                    document.getElementById("div" + k).innerHTML = "<img src=img/shark_001_64px.gif height = 50px width= 50px>"
+
+                }else {
+                    if(currentlvlarray[i][j] === water) {
+                        ele.setAttribute("class", "tile")
+                        container.appendChild(ele);
+                        document.getElementById(`div${k}`).innerHTML = "<img src=img/water.jpg height = 50px width = 50px>"
+                    } else if(currentlvlarray[i][j] === island) {
+                        ele.setAttribute("class", "tile")
+                        container.appendChild(ele);
+                        document.getElementById(`div${k}`).innerHTML = "<img src=img/GrassIsland.png height = 50px width = 50px>"
+                    } else if(currentlvlarray[i][j] === waterfall) {
+                        ele.setAttribute("class", "tile")
+                        container.appendChild(ele);
+                        document.getElementById(`div${k}`).innerHTML = "<img src=img/waterfall.png height = 50px width = 50px>"
+                    } 
+                }
             }
             j++
             k++
@@ -73,7 +79,7 @@ let drawBoard = () => {
         ele.setAttribute("id", `div${k}`)
         ele.setAttribute("class", "")
         container.appendChild(ele)
-        document.getElementById(`div${k}`).innerHTML = `${message}`
+        document.getElementById(`div${k}`).innerHTML = `${message}   ${shark_x} ${shark_y}`
     }
 }
 let moveLeft = () => {    
@@ -85,6 +91,7 @@ let moveLeft = () => {
         } else {
             message = "Water is all around"
         }
+        sharkMovement()
         drawBoard()
     }    
 }
@@ -97,6 +104,7 @@ let moveDown = () => {
         } else {
             message = "Water is all around"
         }
+        sharkMovement()
         drawBoard()
     }
 }
@@ -109,6 +117,7 @@ let moveRight = () => {
         } else {
             message = "Water is all around"
         }
+        sharkMovement()
         drawBoard()
     }
 }
@@ -121,31 +130,35 @@ let moveUp = () => {
         } else {
             message = "Water is all around"
         }
+        sharkMovement()
         drawBoard()
     }
 }
-async function sharkMovement(){
+let sharkMovement = () => {
     
-    while(true){
-        setTimeout(() => {}, 4000)
-        console.log("hello")
-        if(counter > 20){
-            counter = 0
-        }
-        if(counter >= 0 && counter < 5){ 
-            shark_y++
-        }
-        if(counter >= 5 && counter < 10){
-            shark_x++
-        }
-        if(counter >= 10 && counter < 15){
-            shark_y--
-        }
-        if(counter >= 15 && counter < 20){
-            $shark_x--
-        }
-        drawBoard()
+        //setTimeout(() => {}, 4000)
+    console.log(counter)
+    if(counter >= 20){
+        counter = 0
     }
+    if(counter >= 0 && counter < 5){ 
+        shark_y++
+        counter++
+    }
+    if(counter >= 5 && counter < 10){
+        shark_x++
+        counter++
+    }
+    if(counter >= 10 && counter < 15){
+        shark_y--
+        counter++
+    }
+    if(counter >= 15 && counter < 20){
+        $shark_x--
+        counter++
+    }
+    drawBoard()
+    
 }
 let sharkDamage = () => {
     health -= Math.floor(Math.random()*4)
