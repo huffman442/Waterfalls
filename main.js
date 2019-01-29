@@ -12,19 +12,17 @@ let moneyAmt = 0
 const level1Arr = [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],[0, 0, 0, 2, 2, 2, 2, 2, 0, 0, 0, 0],[0, 0, 0, 2, 0, 0, 0, 4, 2, 0, 0, 0],[0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0, 0],[0, 0, 0, 2, 0, 0, 2, 0, 0, 0, 0, 0],[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]
 const level2Arr = [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],[0, 0, 0, 2, 2, 2, 2, 2, 0, 0, 0, 0],[0, 0, 0, 2, 0, 0, 0, 0, 2, 0, 0, 0],[0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0, 0],[0, 0, 0, 2, 0, 0, 2, 0, 0, 0, 0, 0],[0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0, 0],[0, 0, 0, 0, 0, 2, 0, 2, 0, 0, 0, 0],[0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0, 0],[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]
 let currentlvlarray = level1Arr
-let health = 40
-let maxHealth = 40
+let health = 10
+let maxHealth = 10
 let message = "Water is all around!"
 
 let drawBoard = () => {
     
     const container = document.getElementById('container');
     container.innerHTML = ""
-    let i = 0
     let k = 0
-    while(i < currentlvlarray.length) {
-        let j = 0
-        while(j < currentlvlarray[0].length){
+    for(let i = 0;i < currentlvlarray.length; i++) {
+        for(let j = 0; j < currentlvlarray[0].length; j++){
             if (!document.getElementById(`div${k}`)) {
                 const ele = document.createElement("div");
                 ele.setAttribute("id", `div${k}`);
@@ -53,10 +51,8 @@ let drawBoard = () => {
                     } 
                 }
             }
-            j++
             k++
         }
-        i++
     }
     if (!document.getElementById(`div${k}`)){
         const ele = document.createElement("div");
@@ -91,7 +87,7 @@ let moveLeft = () => {
         } else {
             message = "Water is all around"
         }
-        sharkMovement()
+  
         drawBoard()
     }    
 }
@@ -104,7 +100,7 @@ let moveDown = () => {
         } else {
             message = "Water is all around"
         }
-        sharkMovement()
+        //sharkMovement()
         drawBoard()
     }
 }
@@ -117,7 +113,7 @@ let moveRight = () => {
         } else {
             message = "Water is all around"
         }
-        sharkMovement()
+        //sharkMovement()
         drawBoard()
     }
 }
@@ -130,13 +126,14 @@ let moveUp = () => {
         } else {
             message = "Water is all around"
         }
-        sharkMovement()
+        //sharkMovement()
         drawBoard()
     }
 }
-let sharkMovement = () => {
+function sharkMovement() {
     
-        //setTimeout(() => {}, 4000)
+        //
+    
     console.log(counter)
     if(counter >= 20){
         counter = 0
@@ -159,12 +156,27 @@ let sharkMovement = () => {
     }
     if(shark_x === row_position && shark_y === col_position){
         sharkDamage()
+        
     }
-    drawBoard()
+    
+    
+    //setTimeout(() => {drawBoard()}, 4000)
+
     
 }
 let sharkDamage = () => {
     health -= Math.floor(Math.random()*3 + 1)
+    if(health <= 0){
+        console.log("game should be over")
+        gameOver()
+    }
+}
+let gameOver = () => {
+    console.log('game should end now!')
+    const container = document.getElementById('container');
+    container.innerHTML = ""
+    container.innerHTML = "<img src = img/game-over.png height = 500px width = 360px>"
+    setTimeout(()=>{}, 50000)
 }
 
 document.addEventListener("keypress", function onEvent(event) {
@@ -179,8 +191,11 @@ document.addEventListener("keypress", function onEvent(event) {
     }    
 });
 
+let startUp = () => {
+    drawBoard();
+    sharkMovement();    
+}
 
-
-window.onload = drawBoard() 
+window.onload = startUp()
 
 
