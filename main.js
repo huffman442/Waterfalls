@@ -158,6 +158,7 @@ function sharkMovement() {
         sharkDamage()
         
     }
+    drawBoard()
     
     
     //setTimeout(() => {drawBoard()}, 4000)
@@ -193,7 +194,7 @@ document.addEventListener("keypress", function onEvent(event) {
 
 let startUp = () => {
     drawBoard();
-    sharkMovement();    
+    setInterval(function () {sharkMovement()}, 500);    
 }
 
 window.onload = startUp()
