@@ -155,11 +155,10 @@ function sharkMovement() {
         counter++
     }
     if(shark_x === row_position && shark_y === col_position){
-        sharkDamage()
-        
+        sharkDamage()        
     }
 
-    if(health >= 0) {
+    if(health > 0) {
         drawBoard()
     }
     
@@ -179,7 +178,7 @@ let gameOver = () => {
     console.log('game should end now!')
     const container = document.getElementById('container');
     container.innerHTML = ""
-    container.innerHTML = "<img src = img/game-over.png height = 500px width = 360px>"
+    container.innerHTML = "<img src = img/game-over.png height = 500px width = 360px><div> Press r to restart</div>"
 }
 
 document.addEventListener("keypress", function onEvent(event) {
@@ -191,7 +190,9 @@ document.addEventListener("keypress", function onEvent(event) {
         moveDown()
     } else if (event.key === "d"){
         moveRight()
-    }    
+    } else if (event.key === "r" && health < 0){
+        window.location.reload(true);
+    } 
 });
 
 let startUp = () => {
