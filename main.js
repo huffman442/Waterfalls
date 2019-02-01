@@ -12,8 +12,8 @@ let moneyAmt = 0
 const level1Arr = [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],[0, 0, 0, 2, 2, 2, 2, 2, 0, 0, 0, 0],[0, 0, 0, 2, 0, 0, 0, 4, 2, 0, 0, 0],[0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0, 0],[0, 0, 0, 2, 0, 0, 2, 0, 0, 0, 0, 0],[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]
 const level2Arr = [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],[0, 0, 0, 2, 2, 2, 2, 2, 0, 0, 0, 0],[0, 0, 0, 2, 0, 0, 0, 0, 2, 0, 0, 0],[0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0, 0],[0, 0, 0, 2, 0, 0, 2, 0, 0, 0, 0, 0],[0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0, 0],[0, 0, 0, 0, 0, 2, 0, 2, 0, 0, 0, 0],[0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0, 0],[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]
 let currentlvlarray = level1Arr
-let health = 10
-let maxHealth = 10
+let health = 4
+let maxHealth = 4
 let message = "Water is all around!"
 
 let drawBoard = () => {
@@ -130,28 +130,35 @@ let moveUp = () => {
         drawBoard()
     }
 }
+function waterfallCheck(arr) {
+    for(let i = 0; i < arr.length; i++){
+        if(arr[i].includes(waterfall)){
+            console.log("HEHEYEYFHEFYEA")
+            return true;           
+        }
+    }
+}
 function sharkMovement() {
     
-        //
     
-    console.log(counter)
-    if(counter >= 20){
+    console.log(waterfallCheck(currentlvlarray))
+    if(counter >= 12){
         counter = 0
     }
-    if(counter >= 0 && counter < 5){ 
-        shark_y++
-        counter++
-    }
-    if(counter >= 5 && counter < 10){
+    if(counter >= 0 && counter < 3){ 
         shark_x++
         counter++
     }
-    if(counter >= 10 && counter < 15){
-        shark_y--
+    if(counter >= 3 && counter < 6){
+        shark_y++
         counter++
     }
-    if(counter >= 15 && counter < 20){
+    if(counter >= 6 && counter < 9){
         shark_x--
+        counter++
+    }
+    if(counter >= 9 && counter < 12){
+        shark_y--
         counter++
     }
     if(shark_x === row_position && shark_y === col_position){
@@ -197,7 +204,7 @@ document.addEventListener("keypress", function onEvent(event) {
 
 let startUp = () => {
     drawBoard();
-    setInterval(function () {sharkMovement()}, 500);    
+    setInterval(function () {sharkMovement()}, 100);    
 }
 
 window.onload = startUp()
