@@ -12,7 +12,8 @@ TO-DO List:
 * Add upgrades for boats i.e. sails to make boat go faster, weapons, armor
 * Multiple levels
 * Money system
-* Game Over Screen -- this exists in theory, but it's not current working, showing and staying up when game should be over.
+* ~~Game Over Screen -- this exists in theory, but it's not current working, showing and staying up when game should be over.~~ (This partially exists, if you hit another button it doesn't work)
+* Start game screen/Option so that a game might be started/restarted
 
 Known Bugs:
 * ~~Shark phases through boat sometimes~~
