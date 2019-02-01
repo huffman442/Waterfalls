@@ -158,7 +158,10 @@ function sharkMovement() {
         sharkDamage()
         
     }
-    drawBoard()
+
+    if(health >= 0) {
+        drawBoard()
+    }
     
     
     //setTimeout(() => {drawBoard()}, 4000)
@@ -177,7 +180,6 @@ let gameOver = () => {
     const container = document.getElementById('container');
     container.innerHTML = ""
     container.innerHTML = "<img src = img/game-over.png height = 500px width = 360px>"
-    setTimeout(()=>{}, 50000)
 }
 
 document.addEventListener("keypress", function onEvent(event) {
