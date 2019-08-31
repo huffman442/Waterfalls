@@ -11,7 +11,7 @@ game = Game.new
 # end
 system "cls"
 puts ""
-while $input != "q"
+while $input != "q" #If key pressed isn't 'q', keep playing the game.
     game.display()
     puts $message
     game.shark_movement()
