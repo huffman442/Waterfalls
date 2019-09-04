@@ -61,26 +61,32 @@ end
 
 
 class Board
-    def initialize(gridSize)
-        $grid = Array.new(gridSize){ Array.new(gridSize){ Water.new } }
-        $grid[2][4] = Waterfall.new
-        $grid[3][5] = Waterfall.new
-        $grid[2][7] = Waterfall.new
-        $grid[2][3] = Island_tile.new
-        $grid[1][3] = Island_tile.new
-        $grid[3][3] = Island_tile.new
-        $grid[4][4] = Island_tile.new
-        $grid[4][3] = Island_tile.new
-        $grid[4][5] = Island_tile.new
-        $grid[1][4] = Island_tile.new
-        $grid[1][5] = Island_tile.new
-        $grid[1][6] = Island_tile.new
-        $grid[1][7] = Island_tile.new
-        $grid[1][8] = Island_tile.new
-        $grid[1][9] = Island_tile.new
-        $grid[2][9] = Island_tile.new
-        $grid[3][9] = Island_tile.new
-        $grid[4][9] = Island_tile.new
+    def initialize
+        gridSize = 30
+        @grid = Array.new(gridSize){ Array.new(gridSize){ Water.new } }
+    end
+
+    def create_level_one
+        @grid[2][4] = Waterfall.new
+        @grid[3][5] = Waterfall.new
+        @grid[2][7] = Waterfall.new
+        @grid[2][3] = Island_tile.new
+        @grid[1][3] = Island_tile.new
+        @grid[3][3] = Island_tile.new
+        @grid[4][4] = Island_tile.new
+        @grid[4][3] = Island_tile.new
+        @grid[4][5] = Island_tile.new
+        @grid[1][4] = Island_tile.new
+        @grid[1][5] = Island_tile.new
+        @grid[1][6] = Island_tile.new
+        @grid[1][7] = Island_tile.new
+        @grid[1][8] = Island_tile.new
+        @grid[1][9] = Island_tile.new
+        @grid[2][9] = Island_tile.new
+        @grid[3][9] = Island_tile.new
+        @grid[4][9] = Island_tile.new
+
+        return @grid
     end
 end
 

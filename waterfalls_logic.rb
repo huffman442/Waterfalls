@@ -1,21 +1,19 @@
 require "./waterfalls_data.rb"
 class Game
     def initialize
-        $Empty = 0 
-        $User = 1
-        $Island = 2
         $Waterfall = 3
         $bullShark = 4
         $message = "Water is all around!"
         $counter = 0
+        @column_count = 0...30
+        @row_count = 0...30
         @shark = {
             "icon" => "┴ ",
             "x" => 5,
             "y" => 3
-        }
-        @gridSize = 30      
+        }   
         @still_searching = false
-        @board = Board.new(@gridSize)
+        @level_one = Board.new.create_level_one
         @ship = {
             "health" => 4,
             # "current_item" => nil,
@@ -26,16 +24,16 @@ class Game
             "icon" => "Ω "
         }
     end
-    # This function displays the board
+    # This function displays the level_one
     def display
-        (0...@gridSize).each do |column|
-            (0...@gridSize).each do |row|
+        @column_count.each do |column|
+            @row_count.each do |row|
                 if @ship["x"] == column && @ship["y"] == row
                     print @ship["icon"]
                 elsif @shark["x"] == column && @shark["y"] == row
                     print @shark["icon"]
                 else
-                    print $grid[column][row].display  
+                    print @level_one[column][row].display  
                 end           
             end
             puts #print one array, hits enter, prints next array
@@ -60,7 +58,7 @@ class Game
             @shark["x"] -= 1
         end
     end
-    # This function moves the player around the board
+    # This function moves the player around the level_one
     def movement()
         up_key = 'w'
         up_mod = -1
@@ -68,16 +66,16 @@ class Game
         stay = 0
         right_mod = 1
         left_mod = -1
-        if @ship["x"] > 0 && #$grid[@ship["x"] - 1][@ship["y"]].passable == true
+        if @ship["x"] > 0 &&  @level_one[@ship["x"] - 1][@ship["y"]].passable == true
             handle_move(up_key, up_mod, stay)
         end
-        if @ship["y"] > 0 && #$grid[@ship["x"]][@ship["y"] - 1].passable == true
+        if @ship["y"] > 0 &&  @level_one[@ship["x"]][@ship["y"] - 1].passable == true
             handle_move('a', stay, left_mod)
         end
-        if @ship["x"] < @gridSize - 1 #&& $grid[@ship["x"] + 1][@ship["y"]].passable == true
+        if @ship["x"] < @gridSize - 1 #&& level_one[@ship["x"] + 1][@ship["y"]].passable == true
             handle_move('s', down_mod, stay)
         end
-        if @ship["y"] < @gridSize - 1 && #$grid[@ship["x"]][@ship["y"] + 1].passable == true
+        if @ship["y"] < @gridSize - 1 &&  @level_one[@ship["x"]][@ship["y"] + 1].passable == true
             handle_move('d', stay, right_mod)
         end
     end
@@ -87,14 +85,14 @@ class Game
             if @ship["x"] + modifier_x == @shark["x"] && @ship["y"] + modifier_y == @shark["y"]
                 shark_hit()         
             end
-            if $grid[@ship["x"] + modifier_x][@ship["y"] + modifier_y] == $Waterfall
+            if @level_one[@ship["x"] + modifier_x][@ship["y"] + modifier_y] == $Waterfall
                 waterfall_found()             
             else
                 $message = "Water is all around!"     
             end     
             @ship["x"] += modifier_x
             @ship["y"] += modifier_y
-            $grid[@ship["x"]][@ship["y"]] = $empty                      
+         @level_one[@ship["x"]][@ship["y"]] = $empty                      
         end        
     end
 
@@ -110,7 +108,7 @@ class Game
     def still_waterfalls
         (0...@gridSize).each do |column|
             (0...@gridSize).each do |row|
-                if $grid[column][row] == $Waterfall
+                if @level_one[column][row] == $Waterfall
                     @still_searching = true
                 end
             end
