@@ -20,10 +20,20 @@ class Water < Tile
     end
 end
 
-class Island_tile < Tile
+class Island < Tile
     def initialize
         @display = "ö "
         @passable = false
+    end
+
+    def create grid, col, row, start_x, start_y
+        (start_x...start_x + row).each do |r|
+            (start_y...start_y + col).each do |c|
+                grid[r][c] = Island.new
+            end
+        end
+
+        grid
     end
 
     def effect player
@@ -67,24 +77,13 @@ class Board
     end
 
     def create_level_one
-        @grid[2][4] = Waterfall.new
-        @grid[3][5] = Waterfall.new
+        island = Island.new
+        @grid = island.create(@grid, 4, 4, 1, 3)
+        @grid = island.create(@grid, 1, 1, 1, 7)
+        @grid = island.create(@grid, 2, 4, 1, 8)
+        
         @grid[2][7] = Waterfall.new
-        @grid[2][3] = Island_tile.new
-        @grid[1][3] = Island_tile.new
-        @grid[3][3] = Island_tile.new
-        @grid[4][4] = Island_tile.new
-        @grid[4][3] = Island_tile.new
-        @grid[4][5] = Island_tile.new
-        @grid[1][4] = Island_tile.new
-        @grid[1][5] = Island_tile.new
-        @grid[1][6] = Island_tile.new
-        @grid[1][7] = Island_tile.new
-        @grid[1][8] = Island_tile.new
-        @grid[1][9] = Island_tile.new
-        @grid[2][9] = Island_tile.new
-        @grid[3][9] = Island_tile.new
-        @grid[4][9] = Island_tile.new
+    
 
         return @grid
     end

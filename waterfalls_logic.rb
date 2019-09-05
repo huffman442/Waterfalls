@@ -13,7 +13,8 @@ class Game
             "y" => 3
         }   
         @still_searching = false
-        @level_one = Board.new.create_level_one
+        @level_one = Board.new
+        @level_one = @level_one.create_level_one()
         @ship = {
             "health" => 4,
             # "current_item" => nil,
