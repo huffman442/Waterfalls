@@ -26,7 +26,18 @@ class Island < Tile
         @passable = false
     end
 
-    def create grid, col, row, start_x, start_y
+    def u_shape grid, start_x, start_y
+        col = [4, 1, 2]
+        row = [4, 1, 4]
+        y = [start_y, start_y + 4, start_y + 5]
+        col.each_with_index do |x, i|
+            grid = create_block grid, x, row[i], start_x, y[i]
+        end
+        grid[start_x + 1][start_y + 4] = Waterfall.new
+        grid
+    end
+
+    def create_block grid, col, row, start_x, start_y
         (start_x...start_x + row).each do |r|
             (start_y...start_y + col).each do |c|
                 grid[r][c] = Island.new
@@ -78,14 +89,10 @@ class Board
 
     def create_level_one
         island = Island.new
-        @grid = island.create(@grid, 4, 4, 1, 3)
-        @grid = island.create(@grid, 1, 1, 1, 7)
-        @grid = island.create(@grid, 2, 4, 1, 8)
         
-        @grid[2][7] = Waterfall.new
-    
-
-        return @grid
+        @grid = island.u_shape @grid, 1, 3
+        @grid = island.u_shape @grid, 9, 21
+        @grid = island.u_shape @grid, 18, 3 
     end
 end
 
