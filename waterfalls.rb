@@ -14,7 +14,7 @@ puts ""
 while input != "q" #If key pressed isn't 'q', keep playing the game.
     game.display()
     puts $message
-    game.shark_movement()
+    # game.shark_movement()
     # get single character input
     input = STDIN.getch
     # character doesn't get typed when a person types it   

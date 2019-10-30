@@ -3,6 +3,10 @@ class Game
     def initialize
         $message = "Water is all around!"
         $counter = 0
+        @up = 'w'
+        @left = 'a'
+        @right = 'd'
+        @down = 's'
         @column_count = 0...30
         @row_count = 0...30
         @shark = {
@@ -59,33 +63,42 @@ class Game
     #     end
     # end
     # This function moves the player around the level
-    def movement(key_press)
-        move_x = 0
-        move_y = 0
-        if key_press == 'w'
-            move_x -= 1
+    def movement(direction)
+        move_vertical = 0
+        move_horizontal = 0
+        move_up = -1
+        move_down = 1
+        move_left = -1
+        move_right = 1
+
+
+        if direction == @up
+            move_vertical = move_up
         end
-        if key_press == 's'
+        if direction == @down
             puts 's'
-            move_x += 1            
+            move_vertical = move_down           
         end
-        if key_press == 'a'
-            move_y -= 1
+        if direction == @left
+            move_horizontal = move_left
         end
-        if key_press == 'd'
-            move_y += 1
+        if direction == @right
+            move_horizontal = move_right
         end
-        if check_move(@ship['x'] + move_x, @ship['y'] + move_y)
-            @ship['x'] += move_x
-            @ship['y'] += move_y
+        if check_move(@ship['x'] + move_vertical, @ship['y'] + move_horizontal)
+            @ship['x'] += move_vertical
+            @ship['y'] += move_horizontal
         end
     end
 
+    def check_scroll(pot_x, pot_y)
+    end
+
     def check_move(pot_x, pot_y)
-        if pot_x < 0 || pot_x > @board[0].length         
+        if pot_x < 0 || pot_x >= @board[0].length         
             return false
         end
-        if pot_y < 0 || pot_y > @board[0].length
+        if pot_y < 0 || pot_y >= @board[0].length
             return false
         end
         if @board[pot_x][pot_y].passable == false
