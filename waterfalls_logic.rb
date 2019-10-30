@@ -40,24 +40,24 @@ class Game
         end
     end
     # This function is how the shark moves
-    def shark_movement()
-        $counter += 1
-        if $counter > 20
-            $counter = 0
-        end
-        if $counter.between?(0,5) 
-            @shark["y"] += 1
-        end
-        if $counter.between?(5, 10)
-            @shark["x"] += 1
-        end
-        if $counter.between?(10, 15)
-            @shark["y"] -= 1
-        end
-        if $counter.between?(15, 20)
-            @shark["x"] -= 1
-        end
-    end
+    # def shark_movement()
+    #     $counter += 1
+    #     if $counter > 20
+    #         $counter = 0
+    #     end
+    #     if $counter.between?(0,5) 
+    #         @shark["y"] += 1
+    #     end
+    #     if $counter.between?(5, 10)
+    #         @shark["x"] += 1
+    #     end
+    #     if $counter.between?(10, 15)
+    #         @shark["y"] -= 1
+    #     end
+    #     if $counter.between?(15, 20)
+    #         @shark["x"] -= 1
+    #     end
+    # end
     # This function moves the player around the level
     def movement(key_press)
         move_x = 0
