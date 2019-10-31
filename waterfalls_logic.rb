@@ -42,15 +42,15 @@ class Game
         @board.each_with_index do |tiles, vertical_index|
             tiles.each_with_index do |tile, horizontal_index|
                 if @ship[:vertical_pos] == vertical_index && @ship[:horizontal_pos] == horizontal_index
-                    print @ship[:icon]
+                    print @ship[:icon].on_black
                 # elsif @shark[:row_pos] == col && @shark[:col_pos] == row
                 #     print @shark[:icon]
                 else
                     if check_display(vertical_index, horizontal_index, tile)
                         if tile.revealed
-                            print tile.display.colorize(tile.color)
+                            print tile.display.colorize(tile.color).on_black
                         else
-                         print tile.display.colorize(:white)
+                            print tile.display.colorize(:white).on_black
                         end
                     end
                 end           

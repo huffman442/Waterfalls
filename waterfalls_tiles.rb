@@ -1,10 +1,10 @@
 require "./waterfalls_data.rb"
 
 class Tile
-    attr_reader :display
-    attr_reader :revealed
+    attr_accessor :display
+    attr_accessor :revealed
     attr_reader :passable
-    attr_reader :has_treasure
+    attr_accessor :has_treasure
     attr_reader :color
     
     def initialize
@@ -22,7 +22,15 @@ class Tile
     def check_reveal vertical_coord, horizontal_coord, ship_vert, ship_horiz, light_rad
         if (vertical_coord - ship_vert).abs() <= light_rad && (horizontal_coord - ship_horiz).abs() <= light_rad 
             @revealed = true
+            if self.is_a? Waterfall 
+                 @display = "▓ "
+            end
         end
+        if self.is_a? Waterfall
+        if (vertical_coord - ship_vert).abs() > light_rad || (horizontal_coord - ship_horiz).abs() > light_rad 
+            @display = "≈ "
+        end
+    end
     end
 end
 
@@ -82,7 +90,7 @@ class Waterfall < Tile
         @display = "▓ "
         @has_treasure = true
         @has_been_found = false
-        @color = :white
+        @color = :cyan
     end
     def effect player
         if(@has_been_found)
