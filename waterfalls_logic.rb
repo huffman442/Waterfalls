@@ -1,46 +1,64 @@
 require "./waterfalls_data.rb"
+require "colorize"
+require 'colorized_string'
+
 class Game
     def initialize
+        @horizontal_min = 0 
+        @horizontal_max = 15
+        @vertical_min = 0
+        @vertical_max = 15
         $message = "Water is all around!"
         $counter = 0
         @up = 'w'
         @left = 'a'
         @right = 'd'
         @down = 's'
-        @column_count = 0...30
-        @row_count = 0...30
         @shark = {
             "icon" => "┴ ",
             "x" => 5,
             "y" => 3
         }   
+        @display_count 
         @still_searching = false
         @level = Board.new
         
         @board = @level.create_level_one()
+
+
         @ship = {
-            "health" => 4,
+            :health => 4,
             # "current_item" => nil,
             # "current_armor" => nil,
-            "points" => 0,
-            "x" => 0,
-            "y" => 0,
-            "icon" => "Ω "
+            :points => 0,
+            :vertical_pos => 0,
+            :horizontal_pos => 0,
+            :icon => "Ω ",
+            :light_radius => 3
         }
     end
     # This function displays the    level
     def display
-        @column_count.each do |column|
-            @row_count.each do |row|
-                if @ship["x"] == column && @ship["y"] == row
-                    print @ship["icon"]
-                elsif @shark["x"] == column && @shark["y"] == row
-                    print @shark["icon"]
+        @board.each_with_index do |tiles, vertical_index|
+            tiles.each_with_index do |tile, horizontal_index|
+                if @ship[:vertical_pos] == vertical_index && @ship[:horizontal_pos] == horizontal_index
+                    print @ship[:icon]
+                # elsif @shark[:row_pos] == col && @shark[:col_pos] == row
+                #     print @shark[:icon]
                 else
-                    print @board[column][row].display  
+                    if check_display(vertical_index, horizontal_index, tile)
+                        if tile.revealed
+                            print tile.display.colorize(tile.color)
+                        else
+                         print tile.display.colorize(:white)
+                        end
+                    end
                 end           
             end
-            puts #print one array, hits enter, prints next array
+            if vertical_index >= @vertical_min && vertical_index < @vertical_max
+                puts
+            end
+             #print one array, hits enter, prints next array
         end
     end
     # This function is how the shark moves
@@ -50,16 +68,16 @@ class Game
     #         $counter = 0
     #     end
     #     if $counter.between?(0,5) 
-    #         @shark["y"] += 1
+    #       :col_pos += 1
     #     end
     #     if $counter.between?(5, 10)
-    #         @shark["x"] += 1
+    #       :row_pos += 1
     #     end
     #     if $counter.between?(10, 15)
-    #         @shark["y"] -= 1
+    #       :col_pos -= 1
     #     end
     #     if $counter.between?(15, 20)
-    #         @shark["x"] -= 1
+    #       :row_pos -= 1
     #     end
     # end
     # This function moves the player around the level
@@ -85,30 +103,60 @@ class Game
         if direction == @right
             move_horizontal = move_right
         end
-        if check_move(@ship['x'] + move_vertical, @ship['y'] + move_horizontal)
-            @ship['x'] += move_vertical
-            @ship['y'] += move_horizontal
+        if check_move(@ship[:vertical_pos] + move_vertical, @ship[:horizontal_pos] + move_horizontal)
+            @ship[:vertical_pos] += move_vertical
+            @ship[:horizontal_pos] += move_horizontal
+        end
+        if check_scroll(@ship[:vertical_pos] + move_vertical, @ship[:horizontal_pos] + move_horizontal, direction)
+            @vertical_min += move_vertical
+            @vertical_max += move_vertical
+            @horizontal_min += move_horizontal
+            @horizontal_max += move_horizontal
         end
     end
 
-    def check_scroll(pot_x, pot_y)
+    def check_display(vertical_coord, horizontal_coord, current_tile)
+        if vertical_coord < @vertical_min || vertical_coord >= @vertical_max
+            return false
+        end
+        if horizontal_coord < @horizontal_min || horizontal_coord >= @horizontal_max
+            return false
+        end
+        current_tile.check_reveal(vertical_coord, horizontal_coord, @ship[:vertical_pos], @ship[:horizontal_pos], @ship[:light_radius] )
+        true   
     end
 
-    def check_move(pot_x, pot_y)
-        if pot_x < 0 || pot_x >= @board[0].length         
+    def check_scroll(potential_vertical, potential_horizontal, direction)
+        if @vertical_max - potential_vertical == 5 && direction == @down && potential_vertical < 25
+            return true
+        end
+        if potential_vertical - @vertical_min == 5  && direction == @up && potential_vertical >= 6
+            return true
+        end
+        if @horizontal_max - potential_horizontal == 5 && direction == @right && potential_horizontal < 25
+            return true
+        end
+        if potential_horizontal - @horizontal_min == 5  && direction == @left && potential_horizontal >= 6
+            return true
+        end
+        return false      
+    end
+
+    def check_move(potential_vertical, potential_horizontal)
+        if potential_vertical < 0 || potential_vertical >= @board[0].length      
             return false
         end
-        if pot_y < 0 || pot_y >= @board[0].length
+        if potential_horizontal < 0 || potential_horizontal >= @board[0].length
             return false
         end
-        if @board[pot_x][pot_y].passable == false
+        if @board[potential_vertical][potential_horizontal].passable == false
             return false
         end
         return true
     end
     # def handle_move(key, modifier_x, modifier_y)
     #     if $input == key 
-    #         if @ship["x"] + modifier_x == @shark["x"] && @ship["y"] + modifier_y == @shark["y"]
+    #         if @ship["x"] + modifier_x =:row_pos && @ship["y"] + modifier_y =:col_pos
     #             shark_hit()         
     #         end
     #         if    @board[@ship["x"] + modifier_x][@ship["y"] + modifier_y] == $Waterfall

@@ -2,23 +2,34 @@ require "./waterfalls_data.rb"
 
 class Tile
     attr_reader :display
+    attr_reader :revealed
     attr_reader :passable
     attr_reader :has_treasure
+    attr_reader :color
     
     def initialize
         @display = "  "
         @passable = true
         @has_treasure = false
+        @revealed = false
+        @color = :cyan
     end
 
     def effect player
         return nil
+    end
+
+    def check_reveal vertical_coord, horizontal_coord, ship_vert, ship_horiz, light_rad
+        if (vertical_coord - ship_vert).abs() <= light_rad && (horizontal_coord - ship_horiz).abs() <= light_rad 
+            @revealed = true
+        end
     end
 end
 
 class Water < Tile
     def initialize
         @display = "≈ "
+        @color = :cyan
     end
 end
 
@@ -26,6 +37,7 @@ class Island < Tile
     def initialize
         @display = "ö "
         @passable = false
+        @color = :green
     end
 
     def u_shape grid, start_x, start_y
@@ -70,6 +82,7 @@ class Waterfall < Tile
         @display = "▓ "
         @has_treasure = true
         @has_been_found = false
+        @color = :white
     end
     def effect player
         if(@has_been_found)
