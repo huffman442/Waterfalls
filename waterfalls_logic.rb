@@ -1,5 +1,5 @@
 require "./waterfalls_data.rb"
-require "colorize"
+require 'colorize'
 require 'colorized_string'
 
 class Game
@@ -15,9 +15,9 @@ class Game
         @right = 'd'
         @down = 's'
         @shark = {
-            "icon" => "┴ ",
-            "x" => 5,
-            "y" => 3
+            :icon => "┴ ",
+            :row_pos => 5,
+            :col_pos => 3
         }   
         @display_count 
         @still_searching = false
@@ -43,8 +43,8 @@ class Game
             tiles.each_with_index do |tile, horizontal_index|
                 if @ship[:vertical_pos] == vertical_index && @ship[:horizontal_pos] == horizontal_index
                     print @ship[:icon].on_black
-                # elsif @shark[:row_pos] == col && @shark[:col_pos] == row
-                #     print @shark[:icon]
+                elsif @shark[:row_pos] == vertical_index && @shark[:col_pos] == horizontal_index
+                    print @shark[:icon]
                 else
                     if check_display(vertical_index, horizontal_index, tile)
                         if tile.revealed
@@ -62,24 +62,24 @@ class Game
         end
     end
     # This function is how the shark moves
-    # def shark_movement()
-    #     $counter += 1
-    #     if $counter > 20
-    #         $counter = 0
-    #     end
-    #     if $counter.between?(0,5) 
-    #       :col_pos += 1
-    #     end
-    #     if $counter.between?(5, 10)
-    #       :row_pos += 1
-    #     end
-    #     if $counter.between?(10, 15)
-    #       :col_pos -= 1
-    #     end
-    #     if $counter.between?(15, 20)
-    #       :row_pos -= 1
-    #     end
-    # end
+    def shark_movement()
+        $counter += 1
+        if $counter > 20
+            $counter = 0
+        end
+        if $counter.between?(0,5) 
+          @shark[:col_pos] += 1
+        end
+        if $counter.between?(5, 10)
+          @shark[:row_pos] += 1
+        end
+        if $counter.between?(10, 15)
+          @shark[:col_pos] -= 1
+        end
+        if $counter.between?(15, 20)
+          @shark[:row_pos] -= 1
+        end
+    end
     # This function moves the player around the level
     def movement(direction)
         move_vertical = 0
@@ -127,13 +127,13 @@ class Game
     end
 
     def check_scroll(potential_vertical, potential_horizontal, direction)
-        if @vertical_max - potential_vertical == 5 && direction == @down && potential_vertical < 25
+        if @vertical_max - potential_vertical == 5 && direction == @down && potential_vertical < @board[0].length - 5
             return true
         end
         if potential_vertical - @vertical_min == 5  && direction == @up && potential_vertical >= 6
             return true
         end
-        if @horizontal_max - potential_horizontal == 5 && direction == @right && potential_horizontal < 25
+        if @horizontal_max - potential_horizontal == 5 && direction == @right && potential_horizontal < @board[0].length - 5
             return true
         end
         if potential_horizontal - @horizontal_min == 5  && direction == @left && potential_horizontal >= 6

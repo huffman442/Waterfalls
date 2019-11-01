@@ -2,7 +2,7 @@ require "./waterfalls_tiles.rb"
 
 class Board
     def initialize
-        gridSize = 30
+        gridSize = 100
         @grid = Array.new(gridSize){ Array.new(gridSize){ Water.new } }
     end
 
@@ -16,9 +16,9 @@ class Board
     end
 end
 
-class Game_Over
-    def initialize
-        $grid = Array.new(gridSize){ Array.new(gridSize) { 0 }}
-        $message = "Game over! New Game (y/n)"
-    end
-end
+# class Game_Over
+#     def initialize
+#         $grid = Array.new(gridSize){ Array.new(gridSize) { 0 }}
+#         $message = "Game over! New Game (y/n)"
+#     end
+# end

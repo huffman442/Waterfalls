@@ -8,7 +8,7 @@ class Tile
     attr_reader :color
     
     def initialize
-        @display = "  "
+        @display = "≈ "
         @passable = true
         @has_treasure = false
         @revealed = false
@@ -21,16 +21,12 @@ class Tile
 
     def check_reveal vertical_coord, horizontal_coord, ship_vert, ship_horiz, light_rad
         if (vertical_coord - ship_vert).abs() <= light_rad && (horizontal_coord - ship_horiz).abs() <= light_rad 
-            @revealed = true
-            if self.is_a? Waterfall 
-                 @display = "▓ "
-            end
+           self.reveal()
         end
-        if self.is_a? Waterfall
+        
         if (vertical_coord - ship_vert).abs() > light_rad || (horizontal_coord - ship_horiz).abs() > light_rad 
-            @display = "≈ "
+            self.hide()
         end
-    end
     end
 end
 
@@ -38,6 +34,11 @@ class Water < Tile
     def initialize
         @display = "≈ "
         @color = :cyan
+    end
+    def reveal
+        @revealed = true
+    end
+    def hide
     end
 end
 
@@ -72,22 +73,34 @@ class Island < Tile
     def effect player
         return "How did you get here?"
     end
+
+    def reveal        
+        @revealed = true
+    end
+    def hide
+    end
 end
 
 
 class Whirlpool < Tile
     def initialize
-        "Q)"
+        
     end
 
     def effect player
         player["health"] -= 1
     end
+
+    def reveal
+        @revealed = true
+    end
+    def hide
+    end
 end
 
 class Waterfall < Tile
     def initialize
-        @display = "▓ "
+        @display = "≈ "
         @has_treasure = true
         @has_been_found = false
         @color = :cyan
@@ -101,5 +114,12 @@ class Waterfall < Tile
             player["gold"] += 10
             return "you got some sweet treasure"
         end
+    end
+    def hide
+        @display = "≈ "
+    end
+    def reveal
+        @display = "▓ "
+        @revealed  = true
     end
 end
