@@ -11,12 +11,14 @@ game = Game.new
 # end
 system "cls"
 puts ""
+def run_game
+end
 while input != "q" #If key pressed isn't 'q', keep playing the game.
     game.display()
     puts $message
     # game.shark_movement()
     # get single character input
-    input = STDIN.getch
+    input = STDIN.getch(time: 1)
     # character doesn't get typed when a person types it   
     game.movement(input)
     # game.still_waterfalls()
