@@ -3,6 +3,7 @@ This is a roguelike game using ruby programming language built during the Academ
 
 In order to run the game: 
 gem install colorize
+
 ruby waterfalls.rb
 
 TO-DO List:
